@@ -1,0 +1,49 @@
+# Allgemein
+.DS_Store
+Thumbs.db
+ehthumbs.db
+*.log
+*.tmp
+*~
+
+# IDEs und Editoren
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Node.js / Vue.js
+node_modules/
+dist/
+npm-debug.log*
+yarn-error.log*
+
+# PHP
+vendor/
+composer.lock
+
+# Umgebungsdateien mit sensiblen Daten
+.env
+.env.local
+.env.*.local
+
+# Build-Ausgaben
+/build/
+/public/build/
+
+# Cache und temporäre Dateien
+.cache/
+tmp/
+temp/
+
+# PHP-spezifische Dateien
+*.phar
+
+# Backup-Dateien
+*.bak
+*.old
+*.orig
+*.rej
+
+# Stripe API Schlüssel (falls separat gespeichert)
+secret.key
