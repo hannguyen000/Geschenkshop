@@ -1,0 +1,13 @@
+[
+{"type":"header","version":"5.2.1","comment":"Export to JSON plugin for PHPMyAdmin"},
+{"type":"database","name":"g01"},
+{"type":"table","name":"shop","database":"g01","data":
+[
+{"ID":"1","Bild":"bild\/mystery_box.jpg","Name":"Mystery Box","Beschreibung":"Enthält Artikel im Wert von 100€. ","Preis":"20.49","Anzahl":"43"},
+{"ID":"2","Bild":"bild\/bilderrahmen.jpg","Name":"Bilderrahmen ","Beschreibung":"Naturholzrahmen mit Glaseinsatz. \r\nMaße: 21x30cm A4","Preis":"9.99","Anzahl":"50"},
+{"ID":"3","Bild":"bild\/holzspielzeug.jpg","Name":"Holzspielzeug Set 5-teilig","Beschreibung":"Enthält: Xylophon, Rassel, Flöte, Giraffenfigur Spielzeug, Stapelturm","Preis":"34.00","Anzahl":"6"},
+{"ID":"4","Bild":"bild\/haekel_figur.jpg","Name":"Häkel-Figur","Beschreibung":"Handgemacht. \r\nFarbe: Braun","Preis":"9.99","Anzahl":"7"},
+{"ID":"5","Bild":"bild\/kuscheldecke.jpg","Name":"Kuscheldecke Grau","Beschreibung":"Maße: 220x240 \r\nMaterial: Fleece \r\n","Preis":"24.99","Anzahl":"22"}
+]
+}
+]

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Geschenk Shop</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://ivm108.informatik.htw-dresden.de/ewa/g01/Beleg/frontend/style.css">
+
+  <!-- Favicon -->
+  <link rel="icon" href="https://ivm108.informatik.htw-dresden.de/ewa/g01/Beleg/frontend/icon.png" type="image/png">
+</head>
+
+<body>
+  <h1 class="centered-title">
+    <img class="image-shop" src="https://ivm108.informatik.htw-dresden.de/ewa/g01/Beleg/backend/bild/icon.gif">
+    OUR SHOP
+  </h1>
+
+  <div id="app">
+    <h3>{{ message }}</h3>
+    <label for="datum">Datum: {{ timestamp }}</label>
+
+    <!-- Suchfeld -->
+    <div class="search-query">
+      <label for="search">Suche nach einem Produkt:</label>
+      <input type="text" id="search" class="form-control" v-model="searchQuery" placeholder="Produkt suchen">
+    </div>
+    <hr>
+
+    <!-- Liste der Produkte -->
+    <ul class="list-product">
+      <li class="list-group-item" v-for="(product, index) in filteredProducts" :key="product.id">
+        <img :src="product.bild" class="product-image" alt="Produktbild" v-if="product.bild">
+        <div class="product-info">
+          <div><span class="product-name">Produkt: {{ product.name }}</span></div>
+          <div>{{ product.beschreibung }}</div>
+          <div>Produkt verfügbar:
+            <span class="badge badge-primary badge-pill" v-if="product.anzahl > 0">Ja</span>
+            <span class="badge badge-danger badge-pill" v-else>Nein</span>
+            <span class="badge badge-primary badge-pill" v-if="product.anzahl > 0">{{ product.anzahl }}</span>
+          </div>
+          <div>Preis: {{ product.preis }} €</div>
+        </div>
+
+        <div class="product-buttons">
+          <button @click="bestellen(index)" class="btn btn-outline-primary">Zum Warenkorb hinzufugen</button>
+          <button @click="entfernen(index)" class="btn btn-outline-danger">Aus Warenkorb entfernen</button>
+        </div>
+        <span style="color:red" v-if="product.anzahl == 0">Neue Produkte sind unterwegs!</span>
+      </li>
+    </ul>
+    <hr>
+    <br>
+
+    <button @click="toggleLoginPopup" class="btn btn-outline-primary mt-3 login-btn">{{ isLoggedIn ? 'Hallo ' + user.username : 'Konto' }}</button>
+
+    <!--  Login Popup -->
+    <div v-if="showLoginPopup" class="popup">
+      <div class="popup-content">
+        <h2 v-if="!isLoggedIn">Login</h2>
+        <!-- Login Formular -->
+        <div v-if="!isLoggedIn">
+          <input v-model="loginForm.username" type="text" placeholder="Benutzername" required />
+          <input v-model="loginForm.password" type="password" placeholder="Password" required />
+          <button @click="login" class="btn btn-info">Login</button><br>
+          <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
+          <button @click="toggleRegisterPopup" class="btn btn-outline-primary mt-3">Register</button>
+          <button @click="toggleLoginPopup" class="btn btn-outline-primary mt-3">Zurück zum Shop</button>
+        </div>
+        <!--After login success-->
+        <div v-if="isLoggedIn">
+          <h2>Hallo {{ user.username }}</h2>
+          <!-- Add two buttons for admin actions -->
+          <div v-if="isAdmin">
+            <button @click="viewOrders" class="btn btn-info mt-3">Alle Bestellungen ansehen</button>
+            <button @click="openStockPopup" class="btn btn-info mt-3">Lagerbestand ändern</button>
+            <button @click="toggleLoginPopup" class="btn btn-outline-primary mt-3">Zurück zum Shop</button>
+          </div>
+          <!--Logout Button-->
+          <button @click="logout" class="btn btn-outline-primary mt-3">Logout</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Change Stock Popup -->
+     <div v-if="showStockPopup" class="popup">
+      <div class="popup-content">
+        <h2>Lagerbestand verändern:</h2>
+        
+        <label for="product-name">Wählen Sie ein Produkt:</label>
+          <select id="product-name" v-model="currentProduct.name">
+            <option v-for="product in products" :key="product.id" :value="product.name">
+              {{ product.name }}:{{product.anzahl}}
+            </option>
+          </select>
+
+        <label for="new-stock">Neue Anzahl:</label>
+        <input id="new-stock" type="number" v-model="newStock" placeholder="neue Anzahl" />
+    
+        <div class="popup-buttons">
+          <button @click="changeProductStock" class="btn btn-success">Save</button>
+          <button @click="closeStockPopup" class="btn btn-danger">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+   <!-- Show Orders Popup-->
+   <div v-if="showOrdersPopup" class="showorder">
+    <button @click="closeOrdersPopup">Schließen</button>
+        <h3>Bestellliste:</h3>
+        <ul v-if="orders.length > 0">
+            <li v-for="order in orders" :key="order.id">
+                Bestellnummer: {{ order.id }}<br>
+                Kundenname: {{ order.name }}<br>
+                Email von der Kunde: {{ order.email }}<br>
+                Betrag: {{ order.amount_total }}<br>
+                Datum:</strong> {{ order.time }}
+            </li>
+        </ul>
+        <p v-else>Keine Bestellungen vorhanden.</p>
+        <br>
+        
+  </div>
+
+   <!-- Register Popup  -->
+    <div v-if="showRegisterPopup" class="popup">
+      <div class="popup-content">
+        <h2>Registrierung</h2>
+        <!-- Register Formular-->
+        <div>
+          <input v-model="registerForm.regusername" type="text" placeholder="Benutzername*" required />
+          <input v-model="registerForm.regpassword" type="password" placeholder="Passwort*" required />
+          <input v-model="registerForm.email" type="email" placeholder="Email" required />
+          <h5>Adresse:</h5>
+          <input v-model="registerForm.strasse" type="text" placeholder="Straße" />
+          <input v-model="registerForm.ort" type="text" placeholder="Ort" />
+          <input v-model="registerForm.plz" type="int" placeholder="Postleitzahl" />
+          <button @click="register" class="btn btn-info">Registrieren</button><br>
+          <p v-if="registerErrorMessage" class="error-message">{{ registerErrorMessage }}</p>
+          <button @click="toggleRegisterPopup" class="btn btn-outline-primary mt-3">Zurück zum Login</button>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Warenkorb anzeigen -->
+    <button @click="warenkorbAnzeigen" class="btn btn-info">Warenkorb anzeigen</button>
+    <br>
+    <br>
+    <!-- Warenkorb Tabelle -->
+    <div v-if="showCart">
+      <h3>Warenkorb</h3>
+      <hr>
+      <table class="cart-table">
+        <thead>
+          <tr>
+            <th>Produkt</th>
+            <th>Anzahl</th>
+            <th>Preis</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(item, index) in cart" :key="index">
+            <td>{{ item.name }}</td>
+            <td>{{ item.anzahl }}</td>
+            <td>{{ item.preis }}</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <th>Summe</th>
+            <th>{{ totalQuantity }}</th>
+            <th>{{ totalPrice }}€</th>
+          </tr>
+          <tr>
+            <th>Mehrwertsteuer(7%)</th>
+            <th></th>
+            <th>{{ totalMwst }}€</th>
+          </tr>
+          <tr>
+            <th>Betrag(inkl. Mwst)</th>
+            <th></th>
+            <th>{{ priceInclVat }}€</th>
+          </tr>
+        </tfoot>
+      </table>
+
+      <!-- Bezahlen Button -->
+      <a :href="generateCheckoutUrl()" 
+        style="text-decoration: none;">
+        <button v-if="cart.length > 0" class="btn btn-success mt-3 w-100">
+          Bezahlen
+        </button>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- Load Vue.js -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
+  <!-- Link to your custom script -->
+  <script src="https://ivm108.informatik.htw-dresden.de/ewa/g01/Beleg/frontend/vue.js"></script>
+  <!-- Stripe checkout -->
+  <script src="https://js.stripe.com/v3/"></script>
+
+</body>
+
+</html>

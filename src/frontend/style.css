@@ -1,0 +1,273 @@
+h1.centered-title {
+    font-family: "Lilita One", serif;
+    color: #1c1464;
+    font-style: normal;
+    text-align: center;
+    margin-bottom: 5px;
+    font-weight: 700; 
+    }
+
+label {
+    font-size: 18px;
+}
+
+#app {
+    font-family: "Lilita One", serif;
+    padding: 20px;
+    font-size: 18px;
+    background-color: #b3ebf2;
+    border-radius: 20px;
+    max-width: 1000px; /* Breiter gemacht */
+    margin: auto;
+    overflow-x: hidden;
+}
+
+.success_webseite {
+    font-family: "Lilita One", serif;
+    padding: 20px;
+    font-size: 18px;
+    background-color: #b3ebf2;
+    border-radius: 20px;
+    max-width: 1000px; /* Breiter gemacht */
+    margin: auto;
+    overflow-x: hidden;
+}
+
+
+.image-shop{
+        width: 100px;
+        height: auto;  
+}
+
+.image-success{
+    width: 500px; 
+    height: auto; 
+    justify-content: center;
+}
+
+.serch-query {
+    border: 0.5px solid rgb(6, 26, 37);
+    font-size: 19px;
+    text-align: left;
+    color: black;
+    border-collapse: collapse;
+    width: 80%;
+    padding: 3px;
+    justify-content: center;
+    background-color: #e7fdff;
+}
+
+.showorder {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(174, 227, 235);
+    padding: 20px;
+    max-width: 90%;
+    max-height: 50%;
+    overflow-y: auto; 
+    z-index: 1000;
+}
+
+
+.showorder h3 {
+    text-align: center;
+    color: #1c1464;
+    font-weight: 600;
+    font-size: 22px;
+}
+
+.showorder ul {
+    padding-left: 20px;
+    margin-bottom: 10px;
+}
+
+.showorder li {
+    margin-bottom: 8px;
+    font-size: 18px;
+    line-height: 1.5;
+    color: #333;
+}
+
+.showorder button {
+    background-color: #0056b3;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    display: block;
+    margin: 20px auto 0;
+    transition: background-color 0.3s;
+}
+
+.showorder button:hover {
+    background-color: #003366;
+}
+
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .popup-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+    text-align: center;
+  }
+  
+  .error-message {
+    color: red;
+  }
+  
+  button {
+    margin-top: 10px;
+  }
+  
+  .product-name {
+    color: #1c1464;
+    font-size: 20px;
+    font-weight: 600;
+}
+.login-btn {
+    position:absolute;
+    top: 10px; /* Abstand von oben */
+    right: 50px; /* Abstand von rechts */
+    z-index: 1000; /* Sicherstellen, dass der Button immer oben ist */
+    }
+
+.login-btn:hover {
+    background-color: #0056b3; 
+    color: white;               
+    cursor: pointer;          
+    }
+.show-login {
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    z-index: 1000;
+    }
+
+.show-reg {
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    z-index: 1000;
+    }
+    
+.name, .pw{
+    font-size: 19px;
+    width: 300px;
+    padding: 3px;
+    margin: 8px 0;
+}
+    
+
+
+.list-product li {
+    display: flex; /* use flexbox */
+    justify-content: space-between; /* ensure the space between products image and info */
+    align-items: center; 
+    margin-bottom: 20px; /* space between each products */
+    border: 1px solid #ddd;
+    padding: 15px;
+    background-color: #f3fbfc;
+    border-radius: 5px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; 
+}
+
+.list-product li:hover {
+    transform: scale(1.05); /* Vergrößert das Element um 5% */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Fügt einen Schatten hinzu */
+}
+
+.list-product .product-info {
+    flex-grow: 1; 
+    font-size: 17px;
+    padding-left: 15px; /* space between products image and info */
+}
+
+.product-image {
+    width: 180px; 
+    height: 180px;
+    object-fit: cover;
+}
+
+.list-product .product-buttons {
+    display: flex; 
+    flex-direction: column; 
+    gap: 10px; 
+}
+
+.list-product button {
+    width: 200px; /* Đảm bảo nút có chiều rộng đồng nhất */
+}
+
+.list-product {
+    width: 95%;
+    margin: 0 auto;
+    padding: 10px 0;
+}
+
+.cart-table {
+    margin: 0 auto;
+    font-family: "Lilita One", serif;
+    border-collapse: collapse;
+    border-spacing: 0;
+    justify-content: center;
+    width: 95%;
+    border: 0.5px solid rgb(6, 26, 37);
+}
+
+.cart-table tbody,
+.cart-table thead,
+.cart-table tfoot {
+    font-family: "Lilita One", serif;
+    font-size: 19px;
+    text-align: left;
+    padding: 6px;
+}
+
+.cart-table tbody {
+    
+    border: 0.5px solid rgb(6, 26, 37);
+    color: rgb(29, 28, 79);
+    background-color: #bff8ff;
+}
+
+.cart-table thead,
+.cart-table tfoot {
+    background-color: #f4feff;
+    color: black;
+}
+
+.cart-table td, .cart-table th {
+    border:0.5px solid rgb(6, 26, 37);
+}
+
+
+/*tr:nth-child(even) {
+    background-color: rgb(88, 214, 88);
+}*/

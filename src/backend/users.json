@@ -1,0 +1,9 @@
+[
+{"type":"header","version":"5.2.1","comment":"Export to JSON plugin for PHPMyAdmin"},
+{"type":"database","name":"g01"},
+{"type":"table","name":"users","database":"g01","data":
+[
+{"ID":"1","username":"admin","pw":"adm24","email":null,"strasse":null,"ort":null,"plz":null}
+]
+}
+]
